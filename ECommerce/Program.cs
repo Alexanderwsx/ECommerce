@@ -1,19 +1,20 @@
 using ECommerce.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//configure les services nï¿½cessaires pour prendre en charge les
+//contrï¿½leurs MVC et les vues Razor dans une application ASP.NET Core.
 builder.Services.AddControllersWithViews();
 
-//configure les services nécessaires pour prendre en charge les
-//contrôleurs MVC et les vues Razor dans une application ASP.NET Core.
-builder.Services.AddControllersWithViews();
-
-// configure Entity Framework Core pour qu'il utilise une base de données SQL
-// Server et une chaîne de connexion spécifique pour l'application.
+// configure Entity Framework Core pour qu'il utilise une base de donnï¿½es SQL
+// Server et une chaï¿½ne de connexion spï¿½cifique pour l'application.
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>
+    (options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 
 
 
@@ -38,6 +39,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

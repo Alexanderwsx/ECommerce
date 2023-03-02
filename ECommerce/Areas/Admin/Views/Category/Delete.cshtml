@@ -1,0 +1,34 @@
+﻿@using ECommerce.Models;
+@model Category
+
+<form method="post" asp-action="Delete">
+    <input asp-for="Id" hidden/>
+    <div class="border p-3 mt-4">
+        <div class="rom pb-2">
+            <h2 class="text-primary">Delete Category</h2>
+            <hr />
+        </div>
+      @*  show all error message
+            <div asp-validation-summary="All"></div>DeletePOST*@
+        <div class="mb-3">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" readonly class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="DisplayOrder"></label>
+            <input asp-for="DisplayOrder" readonly class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-danger" style="width:150px">Delete</button>
+        <a asp-controller="Category" asp-action="Index" class="btn btn-info" style="width:150px">
+            Back to List
+        </a>
+    </div>
+
+</form>
+
+<!--add a validator side-client  -->
+@section Scripts{
+    @{
+<partial name="_ValidationScriptsPartial"/>
+    }
+}
