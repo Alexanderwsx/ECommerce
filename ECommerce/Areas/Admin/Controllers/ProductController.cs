@@ -89,6 +89,7 @@ namespace ECommerce.Areas.Admin.Controllers
                 }
 
                 _unitOfWork.Save(); // Enregistre les modifications dans la base de données
+                TempData["success"] = "Produit ajouté"; //make a notification when success
                 return RedirectToAction("Index"); // Redirige vers la page d'accueil des produits
             }
             return View(obj); // Retourne la vue Upsert avec l'objet ProductVM en cas de modèle invalide

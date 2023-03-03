@@ -1,0 +1,110 @@
+﻿@model ECommerce.Models.ViewModels.ProductVM
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+    @*    de cette facon on envoie l'id pour etre utilisé au controller quand on fait post*@
+    <input asp-for="Product.Id" hidden />
+    <input asp-for="Product.ImageUrl" hidden />
+    <div class="row">
+        <div class="col-10">
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    @*texte dinamyque ca change si id !=0*@
+                    <h2 class="text-primary">@(Model.Product.Id != 0 ? "Modifier" : "Ajouter") Produit</h2>
+                    <hr />
+                </div>
+                @*  show all error message
+                <div asp-validation-summary="All"></div>*@
+                <div class="mb-3">
+                    <label>Nom</label>
+                    <input asp-for="Product.Name" class="form-control" />
+                    <span asp-validation-for="Product.Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label>
+                        Description</label>
+                    <textarea asp-for="Product.Description" roms="3" class="form-control"></textarea>
+                    <span asp-validation-for="Product.Description" class="text-danger"></span>
+                </div>
+
+
+                <div class="mb-3 col-6">
+                    <label>Marque</label>
+                    <input asp-for="Product.Brand" class="form-control" />
+                    <span asp-validation-for="Product.Brand" class="text-danger"></span>
+                </div>
+
+
+                <div class="mb-3 col-6">
+                    <label>Prix</label>
+                    <input asp-for="Product.Price" class="form-control" />
+                    <span asp-validation-for="Product.Price" class="text-danger"></span>
+                </div>
+
+           
+                <div class="mb-3 ">
+                    <label >Image</label>
+                    <input type="file" id="uploadBox" name="file" class="form-control" />
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label asp-for="Product.CategoryId"></label>
+                    <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
+                        <option disabled selected>--Choisir Categorie--</option>
+                    </select>
+                    <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                </div>
+               
+                <div class="col-12">
+                    @*            avoir separé le create et update aide pour ajouter un alert quand on veut ajouter sans mettre image
+                    *@          @if (Model.Product.Id != 0)
+                    {
+                        <button type="submit" class="btn btn-primary" style="width:150px">Modifier</button>
+                    }
+                    else
+                    {
+                        <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Ajouter</button>
+
+                    }
+                    <a asp-controller="Product" asp-action="Index" class="btn btn-info" style="width:auto">
+                        Retourner à la liste
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 pt-4">
+            <img src="@Model.Product.ImageUrl"
+                 width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+        </div>
+    </div>
+
+
+</form>
+
+<!--add a validator side-client  -->
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            toolbar_mode: 'floating',
+        });
+
+        function ValidateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire({
+                    icon: 'erreur',
+                    title: 'Oops...',
+                    text: 'Veuillez donner un image!'
+
+                });
+                return false;
+
+            }
+            return true;
+        }
+
+    </script>
+}

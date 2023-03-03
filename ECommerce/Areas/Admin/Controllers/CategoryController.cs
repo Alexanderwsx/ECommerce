@@ -36,6 +36,7 @@ namespace ECommerce.Areas.Admin.Controllers
             {
                 _unitOfWork.Category.Add(obj);
                 _unitOfWork.Save();
+                TempData["success"] = "Categorie ajouté"; //Pour faire un notification
                 return RedirectToAction("Index");
             }
             return View();

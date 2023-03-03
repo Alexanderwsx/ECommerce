@@ -26,6 +26,16 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 //addRazonRuntimeCompilation ca aide a �ffectuer les changement sans fermer les pages
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
+
+//activer les sessions
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(100);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
