@@ -38,7 +38,7 @@ namespace ECommerce.DataAccess.Repository
         public IOrderHeaderRepository OrderHeader { get; private set; }
 
         // Méthode pour enregistrer toutes les modifications apportées aux entités dans la base de données
-        public void save()
+        public void Save()
         {
             _db.SaveChanges();
         }

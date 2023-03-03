@@ -35,7 +35,7 @@ namespace ECommerce.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 _unitOfWork.Category.Add(obj);
-                _unitOfWork.save();
+                _unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View();
@@ -65,7 +65,7 @@ namespace ECommerce.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 _unitOfWork.Category.Update(obj);
-                _unitOfWork.save();
+                _unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -99,7 +99,7 @@ namespace ECommerce.Areas.Admin.Controllers
                 return NotFound();
             }
             _unitOfWork.Category.Remove(obj);
-            _unitOfWork.save();
+            _unitOfWork.Save();
             return RedirectToAction("Index");
         }
     }

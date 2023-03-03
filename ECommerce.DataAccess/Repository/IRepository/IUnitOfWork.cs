@@ -20,6 +20,6 @@ namespace ECommerce.DataAccess.Repository.IRepository
         IOrderDetailRepository OrderDetail { get; }
         IOrderHeaderRepository OrderHeader { get; }
 
-        void save();
+        void Save();
     }
 }
