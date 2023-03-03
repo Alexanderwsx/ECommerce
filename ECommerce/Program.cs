@@ -1,6 +1,8 @@
 using ECommerce.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using ECommerce.DataAccess.Repository.IRepository;
+using ECommerce.DataAccess.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +19,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>
     (options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 
 
+//faciliter la gestion de transactions de base de donn�es complexes
+//et garantir la consistance de vos donn�es en cas d'erreur. 
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-
+//addRazonRuntimeCompilation ca aide a �ffectuer les changement sans fermer les pages
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 var app = builder.Build();
 
@@ -34,8 +40,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
+app.MapRazorPages(); //permet l'utilisation de razorpage
 
 app.MapControllerRoute(
     name: "default",
