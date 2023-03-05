@@ -67,6 +67,7 @@ namespace ECommerce.Areas.Admin.Controllers
             {
                 _unitOfWork.Category.Update(obj);
                 _unitOfWork.Save();
+                TempData["success"] = "Categorie modifié"; //Pour faire un notification
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -101,6 +102,7 @@ namespace ECommerce.Areas.Admin.Controllers
             }
             _unitOfWork.Category.Remove(obj);
             _unitOfWork.Save();
+            TempData["success"] = "Categorie supprimé"; //Pour faire un notification
             return RedirectToAction("Index");
         }
     }

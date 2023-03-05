@@ -82,14 +82,17 @@ namespace ECommerce.Areas.Admin.Controllers
                 if (obj.Product.Id == 0) // Vérifie si l'objet contient un nouvel enregistrement ou une mise à jour
                 {
                     _unitOfWork.Product.Add(obj.Product); // Ajoute le nouvel enregistrement dans la base de données
+                    TempData["success"] = "Produit ajouté"; //make a notification when success
+
                 }
                 else
                 {
                     _unitOfWork.Product.Update(obj.Product); // Met à jour l'enregistrement dans la base de données
+                    TempData["success"] = "Produit modifié"; //make a notification when success
+
                 }
 
                 _unitOfWork.Save(); // Enregistre les modifications dans la base de données
-                TempData["success"] = "Produit ajouté"; //make a notification when success
                 return RedirectToAction("Index"); // Redirige vers la page d'accueil des produits
             }
             return View(obj); // Retourne la vue Upsert avec l'objet ProductVM en cas de modèle invalide
