@@ -23,6 +23,16 @@ public class HomeController : Controller
         IEnumerable<Product> ProductList = _unitOfWork.Product.GetAll(includeProperties: "Category");
         return View(ProductList);
     }
+    public IActionResult Details(int productId)
+    {
+        ShoppingCart cartObj = new()
+        {
+            Count = 1,
+            ProductId = productId,
+            Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == productId, includeProperties: "Category")
+        };
+        return View(cartObj);
+    }
 
     public IActionResult Privacy()
     {
