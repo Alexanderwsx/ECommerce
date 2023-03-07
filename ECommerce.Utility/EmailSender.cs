@@ -24,7 +24,7 @@ namespace ECommerce.Utility
             using (var emailClient = new SmtpClient())
             {
                 emailClient.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls); //servidor correo gmail
-                emailClient.Authenticate("alex.martin.wsx@gmail.com", "fdkmukygqwcrcebq"); //nuestra cuenta
+                emailClient.Authenticate("roberto.developpeur@gmail.com", "vumcwacncvfkullq"); //nuestra cuenta
                 emailClient.Send(emailToSend); //methode envoyer courriel
                 emailClient.Disconnect(true); //desconected toujours recommandé
             }
