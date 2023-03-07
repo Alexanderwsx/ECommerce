@@ -21,11 +21,37 @@ public class HomeController : Controller
         _unitOfWork = unitOfWork;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(string searchString)
     {
-        IEnumerable<Product> ProductList = _unitOfWork.Product.GetAll(includeProperties: "Category");
-        return View(ProductList);
+        IEnumerable<Product> productList;
+
+        if (string.IsNullOrEmpty(searchString))
+        {
+            productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
+        }
+        else
+        {
+            productList = _unitOfWork.Product.GetAll(
+                filter: p => p.Name.Contains(searchString),
+                includeProperties: "Category"
+            );
+        }
+
+        return View(productList);
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Search(string nomProduit)
+    {
+        IEnumerable<Product> productList = _unitOfWork.Product.GetAll(
+            filter: p => p.Name.Contains(nomProduit),
+            includeProperties: "Category"
+        );
+        return View("Index", productList);
+    }
+
+
     public IActionResult Details(int productId)
     {
         ShoppingCart cartObj = new()
