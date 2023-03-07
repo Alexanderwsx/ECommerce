@@ -30,19 +30,24 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Core" Version="7.0.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.4" />
+    <PackageReference Include="Stripe.net" Version="41.8.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ECommerce.DataAccess\ECommerce.DataAccess.csproj" />
+    <ProjectReference Include="..\ECommerce.Utility\ECommerce.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Admin\Views\Order\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Order\Index.cshtml" />
     <None Include="Areas\Admin\Views\Product\Upsert.cshtml" />
     <None Include="Areas\Admin\Views\Product\Index.cshtml" />
     <None Include="Areas\Admin\Views\Category\Create.cshtml" />
     <None Include="Areas\Admin\Views\Category\Delete.cshtml" />
     <None Include="Areas\Admin\Views\Category\Edit.cshtml" />
     <None Include="Areas\Admin\Views\Category\Index.cshtml" />
+    <None Include="Views\Shared\Components\ShoppingCart\Default.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

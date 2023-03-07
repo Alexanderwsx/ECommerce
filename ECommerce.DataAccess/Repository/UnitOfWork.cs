@@ -28,6 +28,7 @@ namespace ECommerce.DataAccess.Repository
             ApplicationUser = new ApplicationUserRepository(_db);
             OrderDetail = new OrderDetailRepository(_db);
             OrderHeader = new OrderHeaderRepository(_db);
+            ShoppingCart = new ShoppingCartRepository(_db);
         }
 
         // Propriétés qui exposent les dépôts (repositories) pertinents pour l'application
@@ -36,6 +37,7 @@ namespace ECommerce.DataAccess.Repository
         public IApplicationUserRepository ApplicationUser { get; private set; }
         public IOrderDetailRepository OrderDetail { get; private set; }
         public IOrderHeaderRepository OrderHeader { get; private set; }
+        public IShoppingCartRepository ShoppingCart { get; private set; }
 
         // Méthode pour enregistrer toutes les modifications apportées aux entités dans la base de données
         public void Save()
