@@ -5,6 +5,7 @@ using ECommerce.DataAccess.Repository.IRepository;
 using ECommerce.DataAccess.Repository;
 using Stripe;
 using ECommerce.Utility;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,10 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProvid
 //faciliter la gestion de transactions de base de donn�es complexes
 //et garantir la consistance de vos donn�es en cas d'erreur. 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
+
 
 //addRazonRuntimeCompilation ca aide a �ffectuer les changement sans fermer les pages
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();

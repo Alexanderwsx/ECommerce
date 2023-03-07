@@ -11,7 +11,6 @@ function loadDataTable() {
         },
         "columns": [
             { "data": "name", "width": "15%" }, //case sensibilite majuscule et minuscule doivent etre le meme
-            { "data": "description", "width": "15%" },
             { "data": "brand", "width": "15%" },
             { "data": "price", "width": "15%" },
             { "data": "category.name", "width": "15%" }, // category.name le . pour specifier l'atribut de l'objet category
@@ -27,7 +26,7 @@ function loadDataTable() {
                         </a>
                         </div>
                     `
-                }, "width": "15%"
+                }, "width": "30%"
             }
             
         ]
