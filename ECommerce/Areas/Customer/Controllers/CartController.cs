@@ -142,14 +142,8 @@ namespace ECommerce.Areas.Customer.Controllers
                 cart.Price = cart.Product.Price;
                 ShoppingCartVM.OrderHeader.OrderTotal += (cart.Count * cart.Price);
             }
-            ApplicationUser applicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == claim.Value);
-
-
             ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
             ShoppingCartVM.OrderHeader.OrderStatus = SD.StatusPending;
-
-
-
             _unitOfWork.OrderHeader.Add(ShoppingCartVM.OrderHeader);
             _unitOfWork.Save();
 
@@ -165,53 +159,53 @@ namespace ECommerce.Areas.Customer.Controllers
                 _unitOfWork.OrderDetail.Add(orderDetail);
                 _unitOfWork.Save();
             }
-                //stripe settings //stripe checkout
-                /*
-                 configure une session Stripe pour traiter le paiement,
-                crée la session et redirige le client vers la page de paiement Stripe.
-                 */
-                var domain = "https://localhost:44319/";
-                var options = new SessionCreateOptions
-                {
-                    PaymentMethodTypes = new List<string>
+            //stripe settings //stripe checkout
+            /*
+             configure une session Stripe pour traiter le paiement,
+            crée la session et redirige le client vers la page de paiement Stripe.
+             */
+            var domain = "https://localhost:44319/";
+            var options = new SessionCreateOptions
+            {
+                PaymentMethodTypes = new List<string>
                 {
                     "card",
                 },
-                    LineItems = new List<SessionLineItemOptions>(),
+                LineItems = new List<SessionLineItemOptions>(),
 
-                    Mode = "payment",
-                    SuccessUrl = domain + $"Customer/Cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",
-                    CancelUrl = domain + $"Customer/Cart/index",
-                };
+                Mode = "payment",
+                SuccessUrl = domain + $"Customer/Cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",
+                CancelUrl = domain + $"Customer/Cart/index",
+            };
 
-                foreach (var item in ShoppingCartVM.ListCart)
+            foreach (var item in ShoppingCartVM.ListCart)
+            {
                 {
+                    var sessionLineItem = new SessionLineItemOptions
                     {
-                        var sessionLineItem = new SessionLineItemOptions
+                        PriceData = new SessionLineItemPriceDataOptions
                         {
-                            PriceData = new SessionLineItemPriceDataOptions
+                            UnitAmount = (long)(item.Price * 100), //10.00=1000
+                            Currency = "CAD",
+                            ProductData = new SessionLineItemPriceDataProductDataOptions
                             {
-                                UnitAmount = (long)(item.Price * 100), //10.00=1000
-                                Currency = "CAD",
-                                ProductData = new SessionLineItemPriceDataProductDataOptions
-                                {
-                                    Name = item.Product.Name
-                                },
+                                Name = item.Product.Name
                             },
-                            Quantity = item.Count,
-                        };
-                        options.LineItems.Add(sessionLineItem);
-                    }
+                        },
+                        Quantity = item.Count,
+                    };
+                    options.LineItems.Add(sessionLineItem);
                 }
+            }
 
 
-                var service = new SessionService();
-                Session session = service.Create(options);
-                _unitOfWork.OrderHeader.UpdateStripePaymentID(ShoppingCartVM.OrderHeader.Id, session.Id, session.PaymentIntentId);
-                _unitOfWork.Save();
-                Response.Headers.Add("Location", session.Url);
-                return new StatusCodeResult(303);
-          
+            var service = new SessionService();
+            Session session = service.Create(options);
+            _unitOfWork.OrderHeader.UpdateStripePaymentID(ShoppingCartVM.OrderHeader.Id, session.Id, session.PaymentIntentId);
+            _unitOfWork.Save();
+            Response.Headers.Add("Location", session.Url);
+            return new StatusCodeResult(303);
+
 
         }
 
@@ -242,20 +236,19 @@ namespace ECommerce.Areas.Customer.Controllers
         public IActionResult OrderConfirmation(int id)
         {
             OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id, includeProperties: "ApplicationUser");
-            
-                var service = new SessionService();
-                Session session = service.Get(orderHeader.SessionId);
+            var service = new SessionService();
+            Session session = service.Get(orderHeader.SessionId);
 
-                //check the stripe status
-                if (session.PaymentStatus.ToLower() == "paid")
-                {
-                    _unitOfWork.OrderHeader.UpdateStripePaymentID(id, orderHeader.SessionId, session.PaymentIntentId);
-                    _unitOfWork.OrderHeader.UpdateStatus(id, SD.StatusApproved, SD.PaymentStatusApproved);
-                    _unitOfWork.Save();
-                }
-          
+            //check the stripe status
+            if (session.PaymentStatus.ToLower() == "paid")
+            {
+                _unitOfWork.OrderHeader.UpdateStripePaymentID(id, orderHeader.SessionId, session.PaymentIntentId);
+                _unitOfWork.OrderHeader.UpdateStatus(id, SD.StatusApproved, SD.PaymentStatusApproved);
+                _unitOfWork.Save();
+            }
+
             //envoyer un confirmation via courriel
-            _emailSender.SendEmailAsync(orderHeader.ApplicationUser.Email, "New Order - Bulky Book", "<p>New Order Created</p>");
+            _emailSender.SendEmailAsync(orderHeader.ApplicationUser.Email, "Alex Store - Confirmation Commande", "<p>Confirmation de la commande</p>");
 
             List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetAll
                 (u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();

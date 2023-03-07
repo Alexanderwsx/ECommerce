@@ -76,7 +76,7 @@ else
             <button id="registerSubmit" type="submit" class="w-100 btn  btn-primary">Register</button>
         </form>
     </div>
-    @if (User.IsInRole(SD.Role_User_Indi))
+    @if (!User.IsInRole(SD.Role_Admin))
     {
         <div class="col-md-5">
             <section>
