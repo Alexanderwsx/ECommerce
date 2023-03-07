@@ -148,14 +148,14 @@ namespace ECommerce.Areas.Admin.Controllers
             {
                
                 case "inprocess":
-                    orderHeaders = orderHeaders.Where(u => u.PaymentStatus == SD.StatusInProcess);
+                    orderHeaders = orderHeaders.Where(u => u.OrderStatus == SD.StatusInProcess);
                     break;
 
                 case "completed":
-                    orderHeaders = orderHeaders.Where(u => u.PaymentStatus == SD.StatusShipped);
+                    orderHeaders = orderHeaders.Where(u => u.OrderStatus == SD.StatusShipped);
                     break;
                 case "approved":
-                    orderHeaders = orderHeaders.Where(u => u.PaymentStatus == SD.StatusApproved);
+                    orderHeaders = orderHeaders.Where(u => u.OrderStatus == SD.StatusApproved);
                     break;
                 default:
                     break;
