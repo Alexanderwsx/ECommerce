@@ -14,10 +14,19 @@ namespace ECommerce.Models
     public class ApplicationUser : IdentityUser
     {
         [Required]
+        [Display(Name = "Nom")]
         public string Name { get; set; }
+
+        [Display(Name = "Adresse")]
         public string? StreetAddress { get; set; }
+
+        [Display(Name = "Ville")]
         public string? City { get; set; }
+
+        [Display(Name = "Province")]
         public string? State { get; set; }
+
+        [Display(Name = "Code Postal")]
         public string? PostalCode { get; set; }
       
     }

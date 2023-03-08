@@ -19,7 +19,7 @@ $(document).ready(function () {
             }
         }
     }
-    });
+});
 
 function loadDataTable(status) {
     dataTable = $('#tblData').DataTable({
@@ -47,7 +47,5 @@ function loadDataTable(status) {
             }
 
         ]
-
-
     });
 }

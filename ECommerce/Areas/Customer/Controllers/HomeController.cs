@@ -3,6 +3,7 @@ using ECommerce.Models;
 using ECommerce.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -21,31 +22,22 @@ public class HomeController : Controller
         _unitOfWork = unitOfWork;
     }
 
-    public IActionResult Index(string searchString)
+    public IActionResult Index()
     {
-        IEnumerable<Product> productList;
-
-        if (string.IsNullOrEmpty(searchString))
-        {
-            productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
-        }
-        else
-        {
-            productList = _unitOfWork.Product.GetAll(
-                filter: p => p.Name.Contains(searchString),
-                includeProperties: "Category"
-            );
-        }
-
-        return View(productList);
+        IEnumerable<Product> ProductList = _unitOfWork.Product.GetAll(includeProperties: "Category");
+        return View(ProductList);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Search(string nomProduit)
+    public IActionResult Search(string searchString)
     {
+        if (searchString.IsNullOrEmpty())
+        {
+            return RedirectToAction("Index");  
+        }
         IEnumerable<Product> productList = _unitOfWork.Product.GetAll(
-            filter: p => p.Name.Contains(nomProduit),
+            filter: p => p.Name.Contains(searchString),
             includeProperties: "Category"
         );
         return View("Index", productList);
