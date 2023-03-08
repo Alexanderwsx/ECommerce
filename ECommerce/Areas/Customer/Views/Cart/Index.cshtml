@@ -75,9 +75,17 @@
 
 			<div class="card-footer">
 				<div class="card-footer row">
+					@if(Model.ListCart.Count()>0){
 					<div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6 ">
 						<a asp-action="Summary" class="btn btn-success form-control">Récapitulatif de la commande</a>
-					</div>
+						</div>
+					}
+					else
+					{
+						<div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6 ">
+							<a asp-action="Summary" class="btn btn-success form-control disabled">Le panier est vide</a>
+						</div>
+					}
 				</div>
 			</div>
 		</div>

@@ -17,8 +17,8 @@
                 <hr />
                 <h4>@Model.Product.Price.ToString("c")</h4>
                 <div class="row pl-2">
-                    <div class=" col-8">
-                        <input asp-for="Count" class="form-control" />
+                    <div class="form-control col-8">
+                        <input asp-for="Count" class="form-control" min="1" />
                     </div>
                     <button type="submit" value="Ajouter au panier" class="btn btn-primary form-control">Ajouter au panier</button>
                 </div>
