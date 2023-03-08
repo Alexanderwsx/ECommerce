@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +24,8 @@ namespace ECommerce.Models
         public string? Brand { get; set; }
 
         [Required]
-        public double Price { get; set; }
+        [Column(TypeName = "decimal(18, 4)")]
+        public decimal Price { get; set; }
 
         [Required]
         [Display(Name ="Categorie")]

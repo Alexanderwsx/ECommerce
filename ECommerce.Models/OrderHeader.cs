@@ -21,7 +21,9 @@ namespace ECommerce.Models
         [Required]
         public DateTime OrderDate { get; set; }
         public DateTime ShippingDate { get; set; }
-        public double OrderTotal { get; set; }
+
+        [Column(TypeName = "decimal(18, 4)")]
+        public decimal OrderTotal { get; set; }
         public string? OrderStatus { get; set; }
         public string? PaymentStatus { get; set; }
         public string? TrackingNumber { get; set; }

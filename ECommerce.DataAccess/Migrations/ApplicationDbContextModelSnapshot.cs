@@ -54,8 +54,8 @@ namespace ECommerce.DataAccess.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 4)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -98,8 +98,8 @@ namespace ECommerce.DataAccess.Migrations
                     b.Property<string>("OrderStatus")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("OrderTotal")
-                        .HasColumnType("float");
+                    b.Property<decimal>("OrderTotal")
+                        .HasColumnType("decimal(18, 4)");
 
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
@@ -170,8 +170,8 @@ namespace ECommerce.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18, 4)");
 
                     b.HasKey("Id");
 

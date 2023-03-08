@@ -26,6 +26,6 @@ namespace ECommerce.Models
         public ApplicationUser ApplicationUser { get; set; }
 
         [NotMapped] //ca empeche de l'ajouter à la db
-        public double Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

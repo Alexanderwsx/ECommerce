@@ -27,6 +27,8 @@ namespace ECommerce.Models
         [ValidateNever]
         public Product Product { get; set; }
         public int Count { get; set; }
-        public double Price { get; set; }
+
+        [Column(TypeName = "decimal(18, 4)")]
+        public decimal Price { get; set; }
     }
 }

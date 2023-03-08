@@ -1,5 +1,4 @@
-﻿using ECommerce.DataAccess.Migrations;
-using ECommerce.DataAccess.Repository.IRepository;
+﻿using ECommerce.DataAccess.Repository.IRepository;
 using ECommerce.Models;
 using ECommerce.Models.ViewModels;
 using ECommerce.Utility;
