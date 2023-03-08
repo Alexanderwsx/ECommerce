@@ -1,9 +1,7 @@
 ﻿using ECommerce.DataAccess.Repository.IRepository;
-using ECommerce.Models;
 using ECommerce.Models.ViewModels;
 using ECommerce.Utility;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -107,17 +105,17 @@ namespace ECommerce.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var productList = _unitOfWork.Product.GetAll(includeProperties:"Category");
-            return Json(new {data = productList});
+            var productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
+            return Json(new { data = productList });
         }
 
-        [HttpDelete] 
-        public IActionResult Delete(int id) 
-        { 
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
             var obj = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id);
             if (obj == null)
             {
-                return Json(new { success= false, message = "Erreur lors de la suppression" });
+                return Json(new { success = false, message = "Erreur lors de la suppression" });
             }
 
             var oldImagePath = Path.Combine(_hostEnvironment.WebRootPath, obj.ImageUrl.TrimStart('\\'));

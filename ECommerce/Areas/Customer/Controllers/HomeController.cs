@@ -34,7 +34,7 @@ public class HomeController : Controller
     {
         if (searchString.IsNullOrEmpty())
         {
-            return RedirectToAction("Index");  
+            return RedirectToAction("Index");
         }
         IEnumerable<Product> productList = _unitOfWork.Product.GetAll(
             filter: p => p.Name.Contains(searchString),

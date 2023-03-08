@@ -31,10 +31,7 @@ footer {
     text-overflow: ellipsis;
 }
 
-#card-produit {
-    max-height: 200px;
-    
-}
+
 .card {
     padding: 10px;
 }

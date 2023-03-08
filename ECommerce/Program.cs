@@ -1,12 +1,12 @@
 using ECommerce.DataAccess.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using ECommerce.DataAccess.Repository.IRepository;
-using ECommerce.DataAccess.Repository;
-using Stripe;
-using ECommerce.Utility;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using ECommerce.DataAccess.DbInitializer;
+using ECommerce.DataAccess.Repository;
+using ECommerce.DataAccess.Repository.IRepository;
+using ECommerce.Utility;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,8 +59,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 //facebook login
 builder.Services.AddAuthentication().AddFacebook(options =>
 {
-	options.AppId = "162427436635863";
-	options.AppSecret = "e680fd3b3cb61af58a068fcebb19e25e";
+    options.AppId = "162427436635863";
+    options.AppSecret = "e680fd3b3cb61af58a068fcebb19e25e";
 });
 
 //activer les sessions

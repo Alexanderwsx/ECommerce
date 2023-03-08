@@ -1,10 +1,9 @@
 ﻿using ECommerce.DataAccess.Repository.IRepository;
-using ECommerce.Models.ViewModels;
 using ECommerce.Models;
+using ECommerce.Models.ViewModels;
 using ECommerce.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Stripe.Checkout;
 using Stripe;
 using System.Security.Claims;
 
@@ -35,7 +34,7 @@ namespace ECommerce.Areas.Admin.Controllers
             };
             return View(OrderVM);
         }
-     
+
 
         [HttpPost]
         //seulement les admins ou employee ont access à la methode
@@ -146,7 +145,7 @@ namespace ECommerce.Areas.Admin.Controllers
 
             switch (status)
             {
-               
+
                 case "inprocess":
                     orderHeaders = orderHeaders.Where(u => u.OrderStatus == SD.StatusInProcess);
                     break;
