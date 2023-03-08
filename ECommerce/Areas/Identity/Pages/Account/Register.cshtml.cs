@@ -128,17 +128,19 @@ namespace ECommerce.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            /*El código verifica si los roles existen en la base de datos de la aplicación
-             * utilizando el método RoleExistsAsync() del objeto _roleManager. Si un rol
-             * no existe, se crea utilizando el método CreateAsync() del objeto _roleManager
-             * y un objeto IdentityRole que representa el nuevo rol.*/
-            if (!_roleManager.RoleExistsAsync(SD.Role_Admin).GetAwaiter().GetResult())
-            {
-                _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(SD.Role_Employee)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(SD.Role_User_Indi)).GetAwaiter().GetResult();
 
-            }
+            //Ajouter au dbInitializer. Plus besoin
+            ///*El código verifica si los roles existen en la base de datos de la aplicación
+            // * utilizando el método RoleExistsAsync() del objeto _roleManager. Si un rol
+            // * no existe, se crea utilizando el método CreateAsync() del objeto _roleManager
+            // * y un objeto IdentityRole que representa el nuevo rol.*/
+            //if (!_roleManager.RoleExistsAsync(SD.Role_Admin).GetAwaiter().GetResult())
+            //{
+            //    _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
+            //    _roleManager.CreateAsync(new IdentityRole(SD.Role_Employee)).GetAwaiter().GetResult();
+            //    _roleManager.CreateAsync(new IdentityRole(SD.Role_User_Indi)).GetAwaiter().GetResult();
+
+            //}
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 

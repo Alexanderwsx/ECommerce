@@ -6,6 +6,7 @@ using ECommerce.DataAccess.Repository;
 using Stripe;
 using ECommerce.Utility;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using ECommerce.DataAccess.DbInitializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +38,10 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProvid
 //et garantir la consistance de vos donn�es en cas d'erreur. 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+//pour la creation de roles au debut d'un db
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 
+//email services
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
 
@@ -94,6 +98,9 @@ app.UseRouting();
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 //
 
+//Pour la creation de roles los de la creation d'un db
+SeedDatabase();
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
@@ -105,3 +112,13 @@ app.MapControllerRoute(
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+//Funciton Pour la creation de roles los de la creation d'un db
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}
