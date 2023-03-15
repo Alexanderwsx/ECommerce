@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ECommerce</title>
+    <title>@ViewData["Title"] Alex Store</title>
     <link rel="stylesheet" href="~/ECommerce.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Theme.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -43,7 +43,7 @@
                         @if (User.IsInRole(SD.Role_Admin))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion de Contenu</a>
+                                <div class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestion de Contenu</div>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Categorie</a>
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Produit</a>
