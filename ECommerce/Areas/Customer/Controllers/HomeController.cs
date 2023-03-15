@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 using System.Security.Claims;
+using X.PagedList;
 
 namespace ECommerce.Controllers;
 [Area("Customer")]
@@ -22,24 +23,28 @@ public class HomeController : Controller
         _unitOfWork = unitOfWork;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(int? page)
     {
-        IEnumerable<Product> ProductList = _unitOfWork.Product.GetAll(includeProperties: "Category");
-        return View(ProductList);
+        int pageSize = 8;
+        int pageNumber = page ?? 1;
+        IPagedList<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToPagedList(pageNumber, pageSize);
+        return View(productList);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Search(string searchString)
+    public IActionResult Search(string searchString, int? page)
     {
         if (searchString.IsNullOrEmpty())
         {
             return RedirectToAction("Index");
         }
-        IEnumerable<Product> productList = _unitOfWork.Product.GetAll(
+        int pageSize = 4;
+        int pageNumber = page ?? 1;
+        IPagedList<Product> productList = _unitOfWork.Product.GetAll(
             filter: p => p.Name.Contains(searchString),
             includeProperties: "Category"
-        );
+        ).ToPagedList(pageNumber, pageSize);
         return View("Index", productList);
     }
 
