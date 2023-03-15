@@ -206,7 +206,7 @@ namespace ECommerce.Areas.Identity.Pages.Account
                     {
                         if (User.IsInRole(SD.Role_Admin))
                         {
-                            TempData["success"] = "New user Created Successfully";
+                            TempData["success"] = "Nouvel utilisateur créé";
                         }
                         else
                         {
