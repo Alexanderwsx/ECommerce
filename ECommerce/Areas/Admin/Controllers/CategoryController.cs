@@ -2,7 +2,6 @@
 using ECommerce.Models;
 using ECommerce.Utility;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 namespace ECommerce.Areas.Admin.Controllers
 {

@@ -8,7 +8,7 @@
 <div class="nav-item dropdown">
     @if (SignInManager.IsSignedIn(User))
     {
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button">Bonjour, @UserManager.GetUserName(User)!</a>
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button">@UserManager.GetUserName(User)!</a>
 
     } else
     {

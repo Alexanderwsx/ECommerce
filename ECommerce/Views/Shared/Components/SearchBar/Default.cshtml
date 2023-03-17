@@ -1,0 +1,15 @@
+﻿@model IEnumerable<ECommerce.Models.Category>
+
+<form asp-controller="Home" asp-area="Customer" asp-action="Search" method="get">
+    <div class="input-group">
+        <select name="categoryId" class="form-select">
+            <option value="">Toutes</option>
+            @foreach (var category in Model)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+        <input type="text" class="form-control" style="width:40%" placeholder="Nom produit" name="searchString" aria-label="Search product by name" aria-describedby="button-addon2">
+        <button class="btn btn-secondary" type="submit" id="button-addon2"><i class="bi bi-search"></i></button>
+    </div>
+</form>

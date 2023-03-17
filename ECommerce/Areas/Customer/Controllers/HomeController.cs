@@ -31,22 +31,32 @@ public class HomeController : Controller
         return View(productList);
     }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Search(string searchString, int? page)
+    [HttpGet]
+    public IActionResult Search(string searchString, int? categoryId, int? page)
     {
-        if (searchString.IsNullOrEmpty())
-        {
-            return RedirectToAction("Index");
-        }
-        int pageSize = 4;
+        int pageSize = 8;
         int pageNumber = page ?? 1;
-        IPagedList<Product> productList = _unitOfWork.Product.GetAll(
-            filter: p => p.Name.Contains(searchString),
-            includeProperties: "Category"
-        ).ToPagedList(pageNumber, pageSize);
+        IPagedList<Product> productList;
+
+        if (categoryId.HasValue)
+        {
+            productList = _unitOfWork.Product.GetAll(
+                filter: p => p.CategoryId == categoryId && (searchString.IsNullOrEmpty() || p.Name.Contains(searchString)),
+                includeProperties: "Category"
+            ).ToPagedList(pageNumber, pageSize);
+        }
+        else
+        {
+            productList = _unitOfWork.Product.GetAll(
+                filter: p => searchString.IsNullOrEmpty() || p.Name.Contains(searchString),
+                includeProperties: "Category"
+            ).ToPagedList(pageNumber, pageSize);
+        }
+
         return View("Index", productList);
     }
+
+
 
 
     public IActionResult Details(int productId)
