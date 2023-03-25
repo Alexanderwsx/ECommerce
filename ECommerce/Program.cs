@@ -56,11 +56,12 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
 });
 
-//facebook login
-builder.Services.AddAuthentication().AddFacebook(options =>
+
+//google login
+builder.Services.AddAuthentication().AddGoogle(options =>
 {
-    options.AppId = "162427436635863";
-    options.AppSecret = "e680fd3b3cb61af58a068fcebb19e25e";
+    options.ClientId = "570250884797-4n1a2u96aqnefo94eu6aaro119idggjm.apps.googleusercontent.com";
+    options.ClientSecret = "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";
 });
 
 //activer les sessions
