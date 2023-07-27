@@ -103,7 +103,7 @@ de IOptions<StripeSettings> dans la vue en utilisant l'injection
                                     </li>
                                 }
                                 <li class="list-group-item d-flex justify-content-between bg-light">
-                                    <small class="text-info">Total (USD)</small>
+                                    <small class="text-info">Total (CAD)</small>
                                     <strong class="text-info">@Model.OrderHeader.OrderTotal.ToString("c")</strong>
                                 </li>
                             </ul>
@@ -118,6 +118,7 @@ de IOptions<StripeSettings> dans la vue en utilisant l'injection
                             Date estimée d'arrivée:
                             @DateTime.Now.AddDays(7).ToShortDateString() - @DateTime.Now.AddDays(14).ToShortDateString()
                         </p>
+                        <p class="fw-bold" style="color:red">DEMO CARTE 5454 5454 5454 5454... Vous pouvez remplir les autres champs avec n'importe quoi</p>
                     </div>
                     <div class="col-12 col-md-4">
                         <button type="submit" value="Place Order" class="btn btn-primary form-control">Passer commande</button>

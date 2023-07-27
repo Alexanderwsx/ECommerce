@@ -23,11 +23,11 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index">Alex Store</a>
+                <a class="navbar-brand me-md-3 mx-md-0 mx-auto" asp-area="Customer" asp-controller="Home" asp-action="Index">Alex Store</a>
 
                 @await Component.InvokeAsync("SearchBar", new { selectedCategoryId = ViewData["SelectedCategoryId"] })
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler mx-auto mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarColor01">
