@@ -129,5 +129,55 @@ namespace ECommerce.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
+
+        public async Task<IActionResult> OnPostDemoLoginAsync(string returnUrl = null)
+        {
+            returnUrl ??= Url.Content("~/");
+
+            // Aquí tendrías que escribir la lógica para iniciar sesión con la cuenta de demostración.
+            // Aquí tienes un ejemplo de cómo podrías hacerlo:
+
+            string demoEmail = "cliente@gmail.com";  // Debes reemplazar esto con el correo electrónico de la cuenta de demostración.
+            string demoPassword = "123456789-Au";  // Debes reemplazar esto con la contraseña de la cuenta de demostración.
+
+            var result = await _signInManager.PasswordSignInAsync(demoEmail, demoPassword, isPersistent: false, lockoutOnFailure: false);
+
+            if (result.Succeeded)
+            {
+                _logger.LogInformation("User logged in as demo.");
+                return LocalRedirect(returnUrl);
+            }
+            else
+            {
+                // Debes manejar los errores aquí
+            }
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostDemoAdminLoginAsync(string returnUrl = null)
+        {
+            returnUrl ??= Url.Content("~/");
+
+            // Aquí tendrías que escribir la lógica para iniciar sesión con la cuenta de demostración.
+            // Aquí tienes un ejemplo de cómo podrías hacerlo:
+
+            string demoEmail = "admin@gmail.com";  // Debes reemplazar esto con el correo electrónico de la cuenta de demostración.
+            string demoPassword = "123456789-Au";  // Debes reemplazar esto con la contraseña de la cuenta de demostración.
+
+            var result = await _signInManager.PasswordSignInAsync(demoEmail, demoPassword, isPersistent: false, lockoutOnFailure: false);
+
+            if (result.Succeeded)
+            {
+                _logger.LogInformation("User logged in as demo.");
+                return LocalRedirect(returnUrl);
+            }
+            else
+            {
+                // Debes manejar los errores aquí
+            }
+
+            return Page();
+        }
     }
 }

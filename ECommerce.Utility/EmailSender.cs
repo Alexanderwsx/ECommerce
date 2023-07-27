@@ -14,7 +14,7 @@ namespace ECommerce.Utility
         Task IEmailSender.SendEmailAsync(string email, string subject, string htmlMessage)
         {
             var emailToSend = new MimeMessage();
-            emailToSend.From.Add(MailboxAddress.Parse("hello@dotnetmastery.com"));
+            emailToSend.From.Add(MailboxAddress.Parse("test@gmail.com"));
             emailToSend.To.Add(MailboxAddress.Parse(email));
             emailToSend.Subject = subject;
             emailToSend.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = htmlMessage };
