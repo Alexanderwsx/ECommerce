@@ -163,7 +163,7 @@ namespace ECommerce.Areas.Customer.Controllers
              configure une session Stripe pour traiter le paiement,
             crée la session et redirige le client vers la page de paiement Stripe.
              */
-            var domain = "https://localhost:44319/";
+            var domain = "https://alexstore.azurewebsites.net/";
             var options = new SessionCreateOptions
             {
                 PaymentMethodTypes = new List<string>
